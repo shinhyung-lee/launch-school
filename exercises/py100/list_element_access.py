@@ -9,3 +9,5 @@ def access_second(l):
 if __name__ == '__main__':
   assert access_second(['fish', 'and', 'chips']) == 'and'
   print(access_second(['fish', 'and', 'chips']))
+
+  
