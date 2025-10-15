@@ -3,6 +3,5 @@ cities = ['Istanbul', 'Los Angeles', 'Tokyo', None,
 
 for city in cities: 
     if city is None:
-        pass 
-    else:
-        print(len(city))
+        continue 
+    print(len(city))
