@@ -7,3 +7,8 @@
 False - False boolean 
 [] - empty list
 '''
+
+values = [False, None, 0, 0.0, 0j, '', [], {}, (), set(), frozenset(), range(0)]
+
+for value in values:
+  print(f'{repr(value)} -> {bool(value)}')
