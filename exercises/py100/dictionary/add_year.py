@@ -1,0 +1,11 @@
+
+car = {
+    'type':    'sedan',
+    'color':   'blue',
+    'mileage': 80_000,
+}
+
+car['year'] = 2003 
+
+if __name__ == "__main__":
+    print(car)
