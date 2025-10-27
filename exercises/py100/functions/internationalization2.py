@@ -28,20 +28,12 @@ def extract_region(locale: str) -> str:
 def local_greet(locale: str) -> str:
     # if language is english, put them in their own match-case
     # if language is not english, use greet function. 
+
+    english_region_greetings = { 'US': 'Hey!', 'GB': 'Hello!', 'AU': 'Howdy!', 'CA': 'How\'s she goin?' }
     language = extract_language(locale)
     if language == 'en':
         region = extract_region(locale)
-        match region:
-            case 'US':
-                return 'Hey!'
-            case 'GB':
-                return 'Hello!'
-            case 'AU':
-                return 'Howdy!'
-            case 'CA':
-                return 'How\'s she goin?'
-            case _:
-                return 'Hi!'
+        return english_region_greetings.get(region, "Hi!")
     else:
         return greet(language)
 

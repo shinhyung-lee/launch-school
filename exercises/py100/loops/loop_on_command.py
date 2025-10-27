@@ -1,5 +1,5 @@
 
 answer = ''
 while answer != 'yes':
-    print('Should I stop looping?')
-    answer = input()
+    answer = input('Should I stop looping?')
+    # answer = input()
