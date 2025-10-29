@@ -1,0 +1,18 @@
+{
+        "en": {
+            "continue message": "Would you like to continue? (Y/N) ",
+            "invalid bool": "incorrect boolean value chosen. Try again.",
+            "invalid number": "Hmm... that doesn't look like a valid number.",
+            "choose operation": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide: ",
+            "first number": "What's the first number? ",
+            "second number": "What's the second number? "  
+        },
+        "es": {
+            "continue message": "¿Te gustaría continuar? (T/N) ",
+            "invalid bool": "Valor booleano incorrecto elegido. Inténtalo de nuevo.",
+            "invalid number": "Hmm... that doesn't look like a valid number.",
+            "choose operation": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide: ",
+            "first number": "¿Cual es el primer numero? ",
+            "second number": "¿Cual es el segundo numero? "  
+        }
+}
