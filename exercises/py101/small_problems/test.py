@@ -1,8 +1,5 @@
 
 
 
-name = "claire"
-age = 35
-
-print(name, age)
+print(13**0)
 
