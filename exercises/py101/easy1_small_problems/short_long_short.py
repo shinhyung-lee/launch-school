@@ -1,11 +1,12 @@
 
 
 # returns short long short
-def short_long_short(sentence1, sentence2):
+def short_long_short(string1, string2):
     # assume the strings are of different lengths
-    long = sentence1 if len(sentence1) > len(sentence2) else sentence2
-    short = sentence2 if len(sentence1) > len(sentence2) else sentence1 
-    return f"{short}{long}{short}"
+    if len(string1) > len(string2):
+        return f"{string2}{string1}{string2}"
+    else:
+        return f"{string1}{string2}{string1}"
 
 # These examples should all print True
 print(short_long_short('abc', 'defgh') == "abcdefghabc")
