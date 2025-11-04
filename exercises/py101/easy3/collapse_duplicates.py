@@ -1,7 +1,6 @@
 
 
 def crunch(sentence):
-    # result string
     result = ''
     # iterate using index, if s[curr] != s[curr + 1], add to string
     for idx, _ in enumerate(sentence):
@@ -9,7 +8,6 @@ def crunch(sentence):
             result += sentence[idx]
     return result
         
-
 # These examples should all print True
 print(crunch('ddaaiillyy ddoouubbllee') == 'daily double')
 print(crunch('4444abcabccba') == '4abcabcba')
