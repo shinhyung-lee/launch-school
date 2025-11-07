@@ -21,7 +21,7 @@ def century(year):
     century_number = year // 100 + 1
 
     if year % 100 == 0:
-        century_number -= 1 
+        century_number -= 1
     suffix = century_suffix(century_number)
     return f'{century_number}{suffix}'
 
