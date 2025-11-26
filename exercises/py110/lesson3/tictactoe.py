@@ -1,6 +1,9 @@
 import random
+import os 
 
 def display_board(board):
+    os.system('clear')
+    
     print('')
     print('     |     |')
     print(f"  {board[1]}  |  {board[2]}  |  {board[3]}")
@@ -15,7 +18,7 @@ def display_board(board):
     print('     |     |')
     print('')
 
-INITIAL_MARKER = '     '
+INITIAL_MARKER = ' '
 HUMAN_MARKER = 'X'
 COMPUTER_MARKER = 'O'
 
@@ -42,11 +45,25 @@ def player_choose_square(board):
     board[int(square)] = HUMAN_MARKER
 
 def computer_choose_square(board):
+    if len(empty_squares(board)) == 0:
+        return
     square = random.choice(empty_squares(board))
     board[square] = COMPUTER_MARKER
+    
+def board_full(board):
+    return len(empty_squares(board)) == 0
+
+def someone_won(board):
+    return False 
 
 board = initialize_board()
 display_board(board)
 
-player_choose_square(board)
-display_board(board)
+while True:
+    player_choose_square(board)
+    computer_choose_square(board)
+    display_board(board)
+    
+    if someone_won(board) or board_full(board):
+        break 
+    
