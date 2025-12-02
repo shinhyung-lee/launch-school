@@ -35,10 +35,10 @@ Algorithm:
 
 def is_real_palindrome(sentence):
     cleaned_string = ''
-    
+
     for char in sentence:
-        if char.isalnum():
-            cleaned_string += char.lower()
+        if char.isalnum() and char.isascii():
+            cleaned_string += char.casefold()
 
     return cleaned_string == cleaned_string[::-1]
 
