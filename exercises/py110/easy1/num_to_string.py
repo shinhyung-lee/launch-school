@@ -31,13 +31,11 @@ DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 def integer_to_string(integer):
     stringified_num = ""
 
-    while True:
+    while integer > 0:
         integer, remainder = divmod(integer, 10)
         stringified_num = DIGITS[remainder] + stringified_num
-        if integer == 0:
-            break
     
-    return stringified_num
+    return stringified_num or "0"
 
 print(integer_to_string(4321) == "4321")              # True
 print(integer_to_string(0) == "0")                    # True
