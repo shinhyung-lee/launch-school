@@ -43,3 +43,18 @@ list1 = [9, 10, 'abc']
 list2 = ['acd', {'a': 1}, 100]
 expected = [9, 'acd', 10, {'a': 1}, 'abc', 100]
 print(interleave(list1, list2) == expected)      # True
+
+
+# second version
+def interleave2(lst1, lst2):
+    pass
+    new_list = []
+    for idx in range(len(lst1)):
+        new_list.extend([lst1[idx], lst2[idx]])
+    return new_list
+
+
+list1 = [1, 2, 3]
+list2 = ['a', 'b', 'c']
+expected = [1, "a", 2, "b", 3, "c"]
+print(interleave2(list1, list2) == expected)      # True
