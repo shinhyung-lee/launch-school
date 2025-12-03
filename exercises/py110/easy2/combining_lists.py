@@ -30,4 +30,8 @@ def union(lst1, lst2):
     
     return union_set 
 
+def union2(lst1, lst2):
+    return set(lst1).union(set(lst2))
+
 print(union([1, 3, 5], [3, 6, 9]) == {1, 3, 5, 6, 9}) # True
+print(union2([1, 3, 5], [3, 6, 9]) == {1, 3, 5, 6, 9}) # True
