@@ -29,9 +29,7 @@ def interleave(lst1, lst2):
     zipped_tuple = zip(lst1, lst2)
 
     for first, second in zipped_tuple:
-        combined.append(first)
-        combined.append(second)
-
+        combined.extend([first, second])
     return combined
 
 list1 = [1, 2, 3]
@@ -47,12 +45,10 @@ print(interleave(list1, list2) == expected)      # True
 
 # second version
 def interleave2(lst1, lst2):
-    pass
     new_list = []
     for idx in range(len(lst1)):
         new_list.extend([lst1[idx], lst2[idx]])
     return new_list
-
 
 list1 = [1, 2, 3]
 list2 = ['a', 'b', 'c']
