@@ -19,12 +19,14 @@ Algorithm:
         -Do the same for lst2
     -return "union_set"
 '''
+def copy_non_dups_to(result_set, lst):
+    for value in lst:
+        result_set.add(value)
+
 def union(lst1, lst2):
     union_set = set()
-    for num in lst1:
-        union_set.add(num)
-    for num in lst2:
-        union_set.add(num)
+    copy_non_dups_to(union_set, lst1)
+    copy_non_dups_to(union_set, lst2)
     
     return union_set 
 
