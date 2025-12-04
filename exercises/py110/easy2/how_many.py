@@ -51,12 +51,16 @@ def count_occurrences2(vehicles):
     counter = {} 
 
     for vehicle in vehicles:
-        counter[vehicle] = counter.get(vehicle, 0) + 1 
+        counter[vehicle.casefold()] = counter.get(vehicle.casefold(), 0) + 1 
     
     for item, count in counter.items():
         print(f"{item} => {count}")
 
-count_occurrences2(vehicles)
+
+vehicles2 = ['car', 'CAR', 'truck', 'CaR', 'SUV', 'trUCk',
+            'motorcycLe', 'motORcycle', 'cAr', 'Truck']
+
+count_occurrences2(vehicles2)
 # your output sequence may appear in a different sequence
 # car => 4
 # truck => 3
