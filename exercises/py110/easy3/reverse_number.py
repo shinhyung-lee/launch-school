@@ -30,8 +30,20 @@ def reverse_number(number):
     reversed_num_string = "".join(reversed_nums)
     return int(reversed_num_string)
 
+print("Method 1")
 print(reverse_number(12345) == 54321)   # True
 print(reverse_number(12213) == 31221)   # True
 print(reverse_number(456) == 654)       # True
 print(reverse_number(1) == 1)           # True
 print(reverse_number(12000) == 21)      # True
+
+
+def reverse_number2(number):
+    return int(str(number)[::-1])
+
+print("Method 2")
+print(reverse_number2(12345) == 54321)   # True
+print(reverse_number2(12213) == 31221)   # True
+print(reverse_number2(456) == 654)       # True
+print(reverse_number2(1) == 1)           # True
+print(reverse_number2(12000) == 21)      # True
