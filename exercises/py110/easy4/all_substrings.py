@@ -21,14 +21,23 @@ Algorithms:
 def leading_substrings(string):
     return [string[:idx + 1] for idx in range(len(string))]
 
+# def substrings(string):
+#     index = 0
+#     substrings = []
+#     while index < len(string):
+#         substrings_at_index = leading_substrings(string[index:])
+#         substrings.extend(substrings_at_index)
+#         index += 1
+#     return substrings 
+
 def substrings(string):
-    index = 0
-    substrings = []
-    while index < len(string):
-        curr_substrings = leading_substrings(string[index:])
-        substrings.extend(curr_substrings)
-        index += 1
-    return substrings 
+    results = []
+    for index in range(len(string)):
+        string_at_index = string[index:]
+        for substring in leading_substrings(string_at_index):
+            results.append(substring)
+    return results
+    
 
 expected_result = [
     "a", "ab", "abc", "abcd", "abcde",
