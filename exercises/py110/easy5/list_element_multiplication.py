@@ -34,7 +34,7 @@ list_b = [4, 5, 6]
 print(multiply_items(list_a, list_b) == [4, 10, 18]) # True
 
 def multiply_items2(nums1, nums2):
-    return [nums1[i] * nums2[i] for i in range(len(nums1))]
+    return [num1 * num2 for num1, num2 in zip(nums1, nums2)]
 
 print('\nMethod 2')
 list_a = [1, 2, 3]
