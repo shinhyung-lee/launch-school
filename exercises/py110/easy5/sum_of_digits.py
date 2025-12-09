@@ -33,6 +33,16 @@ def sum_digits(num):
         
     return total
 
+print("Method 1")
 print(sum_digits(23) == 5)              # True
 print(sum_digits(496) == 19)            # True
 print(sum_digits(123456789) == 45)      # True
+
+def sum_digits2(num):
+    digits = [int(digit) for digit in str(num)]
+    return sum(digits)
+
+print("\nMethod 2")
+print(sum_digits2(23) == 5)              # True
+print(sum_digits2(496) == 19)            # True
+print(sum_digits2(123456789) == 45)      # True
