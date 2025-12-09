@@ -31,8 +31,8 @@ Pseudocode:
     - return words
 '''
 
-def word_lengths(string = None):
-    if string is None or len(string) == 0:
+def word_lengths(string = ''):
+    if len(string) == 0:
         return []
     
     words = string.split(' ')
