@@ -76,8 +76,6 @@ def minilang(prompt):
             case 'PRINT':
                 print_register(register)
             
-
-
 minilang('PRINT')
 # 0
 
