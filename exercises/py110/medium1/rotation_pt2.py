@@ -18,7 +18,7 @@ def rotate_rightmost_digits(num, digit):
     untouched = str(num)[:-digit]
     rotate_target = str(num)[-digit:]
     rotated = rotate_target[1:] + rotate_target[0]
-    return int(''.join([untouched, rotated]))
+    return int(untouched + rotated)
 
 print(rotate_rightmost_digits(735291, 2) == 735219)  # True
 print(rotate_rightmost_digits(735291, 3) == 735912)  # True
