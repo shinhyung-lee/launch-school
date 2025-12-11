@@ -14,25 +14,33 @@ Obtuse: One angle is greater than 90 deg
     - sum of the angles must be exactly 180 degrees
     - 
 '''
-def is_valid(angle1, angle2, angle3):
-    angles = [angle1, angle2, angle3]
-    return all([angle > 0 for angle in angles]) and sum(angles) == 180
+def is_valid(angles):
+    total_angle = sum(angles)
+    all_non_zero = all([angle > 0 for angle in angles])
+    return all_non_zero and total_angle == 180
+
+def is_right_triangle(angle):
+    return angle == 90 
+
+def is_acute_triangle(angle):
+    return angle < 90
+
+def get_triangle_type(angles):
+    if any([is_right_triangle(angle) for angle in angles]):
+        return 'right'
+    elif all([is_acute_triangle(angle) for angle in angles]):
+        return 'acute'
+    else:
+        return 'obtuse'
 
 # 'right', 'acute', 'obtuse', or 'invalid'
 def triangle(angle1, angle2, angle3):
-    big = max(angle1, angle2, angle3)
-    small = min(angle1, angle2, angle3)
-    middle = 180 - big - small 
+    angles = [angle1, angle2, angle3]
     
-    if not is_valid(angle1, angle2, angle3):
-        return 'invalid'
-    
-    if big > 90:
-        return 'obtuse'
-    elif big == 90:
-        return 'right'
+    if is_valid(angles):
+        return get_triangle_type(angles)
     else:
-        return 'acute'
+        return 'invalid'
 
 print(triangle(60, 70, 50) == "acute")      # True
 print(triangle(30, 90, 60) == "right")      # True
