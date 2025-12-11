@@ -32,24 +32,25 @@ Pseudocode:
     (round to two decimal digits)
 - return return_dict
 '''
+def get_formatted_percentage(num, total):
+    return f'{num / total * 100:.2f}'
 
 def letter_percentages(string):
-    tally = { 'lower': 0, 'upper': 0, 'neither': 0 }
+    lower = 0
+    upper = 0
+    neither = 0
     for char in string:
         if char.islower():
-            tally['lower'] += 1
+            lower += 1
         elif char.isupper():
-            tally['upper'] += 1
+            upper += 1
         else:
-            tally['neither'] += 1
-    num_lower = tally['lower']
-    num_upper = tally['upper']
-    num_neither = tally['neither']
-    sum_total = sum([num_lower, num_upper, num_neither])
+            neither += 1
+    total = sum([lower, upper, neither])
     return {
-        'lowercase': f'{num_lower / sum_total * 100:.2f}',
-        'uppercase': f'{num_upper / sum_total * 100:.2f}',
-        'neither':   f'{num_neither / sum_total * 100:.2f}'
+        'lowercase': get_formatted_percentage(lower, total),
+        'uppercase': get_formatted_percentage(upper, total),
+        'neither': get_formatted_percentage(neither, total)
     }
 
 expected_result = {
