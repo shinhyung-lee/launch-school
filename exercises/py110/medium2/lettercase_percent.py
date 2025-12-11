@@ -36,6 +36,7 @@ def get_formatted_percentage(num, total):
     return f'{num / total * 100:.2f}'
 
 def letter_percentages(string):
+    total_chars = len(string)
     lower = 0
     upper = 0
     neither = 0
@@ -46,11 +47,11 @@ def letter_percentages(string):
             upper += 1
         else:
             neither += 1
-    total = sum([lower, upper, neither])
+
     return {
-        'lowercase': get_formatted_percentage(lower, total),
-        'uppercase': get_formatted_percentage(upper, total),
-        'neither': get_formatted_percentage(neither, total)
+        'lowercase': get_formatted_percentage(lower, total_chars),
+        'uppercase': get_formatted_percentage(upper, total_chars),
+        'neither': get_formatted_percentage(neither, total_chars)
     }
 
 expected_result = {
