@@ -35,19 +35,24 @@ Pseudocode
     list[b] = temp
 '''
 
-def swap_list_elems(list, a, b):
-    temp = list[a]
-    list[a] = list[b]
-    list[b] = temp
+# def swap_list_elems(list, a, b):
+#     temp = list[a]
+#     list[a] = list[b]
+#     list[b] = temp
 
 def bubble_sort(lst):
-    num_swap = -1 
-    while num_swap != 0:
-        num_swap = 0 
+    # num_swap = -1 
+    while True:
+        # num_swap = 0 
+        swapped = False 
         for idx in range(len(lst) - 1):
             if lst[idx] > lst[idx + 1]:
-                swap_list_elems(lst, idx, idx + 1)
-                num_swap += 1
+                lst[idx], lst[idx + 1] = lst[idx + 1], lst[idx]
+                swapped = True 
+            else:
+                continue 
+        if not swapped:
+            break 
     return lst
 
 lst1 = [5, 3]
