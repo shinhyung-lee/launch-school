@@ -30,9 +30,7 @@ Pseudocode:
 '''
 
 def sum_square(num):
-    total = 0 
-    for current_num in range(1, num + 1):
-        total += current_num 
+    total = sum(range(1, num + 1))
     return total**2
 
 def square_sum(num):
