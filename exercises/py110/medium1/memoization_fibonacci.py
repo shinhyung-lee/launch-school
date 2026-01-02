@@ -2,7 +2,6 @@
 # refactor the code to use memoization
 def fibonacci(nth):
     memo = {}
-
     if nth <= 2:
         return 1
     elif nth in memo:
