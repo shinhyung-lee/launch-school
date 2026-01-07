@@ -16,7 +16,7 @@ class Dog(Animal):
         self.owner = owner 
 
     def introduce(self):
-        return super().introduce() + ' Woof! Woof!'
+        return f'{super().introduce()} Woof! Woof!'
     
     def greet_owner(self):
         return f'Hi {self.owner}! Woof! Woof!'           
@@ -26,7 +26,7 @@ class Cat(Animal):
         super().__init__(name, age, 4, 'cat', status)
         
     def introduce(self):
-        return super().introduce() + ' Meow meow!'
+        return f'{super().introduce()} Meow meow!'
 
 cat = Cat("Pepe", 4, "happy")
 expected = ("Hello, my name is Pepe and I am 4 years old "
