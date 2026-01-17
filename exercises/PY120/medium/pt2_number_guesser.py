@@ -2,9 +2,13 @@ import random
 import math 
 
 class GuessingGame:
-    SECRET_RANGE = range(1, 100 + 1)
-    MAX_GUESSES = 7
-    GUESSES_REMAINING = range(MAX_GUESSES, 0, -1)
+    def __init__(self, low, high):
+        self.num_guesses = int(math.log2(high - low + 1)) + 1
+        self.secret_range = range(low, high + 1)
+        self.guesses_remaining = range(self.num_guesses, 0, -1)
+        self.secret_number = None
+        self.low = low 
+        self.high = high 
 
     RESULT_OF_GUESS_MESSAGE = {
         'high':  "Your number is too high.",
@@ -23,39 +27,38 @@ class GuessingGame:
         'lose': "You have no more guesses. You lost!",
     }
 
-    def __init__(self):
-        self.secret_number = None
+    # def __init__(self):
+    #     self.secret_number = None
         
     def play(self):
         self.reset()
-        self.high, self.low = self.decide_high_low()
         game_result = self.play_game()
         self.show_game_end_message(game_result)
 
     def reset(self):
-        self.secret_number = random.choice(self.__class__.SECRET_RANGE)
+        self.secret_number = random.choice(self.secret_range)
 
-    def set_num_guesses(self):
-        self.num_guesses = int(math.log2(self.high - self.low + 1)) + 1
+    # def set_num_guesses(self):
+    #     self.num_guesses = int(math.log2(self.high - self.low + 1)) + 1
         
     # updated
-    def decide_high_low(self):
-        while True:
-            low = input('Decide low number: ')
-            if not low.isdigit():
-                print('Sorry, that\'s not a valid choice. ')
-            else:
-                break 
-        while True:
-            high = input('Decide high number: ')
-            if not high.isdigit() or low >= high:
-                print('Sorry, that\'s not a valid choice. ')
-            else:
-                break 
-        return (int(high), int(low))
+    # def decide_high_low(self):
+    #     while True:
+    #         low = input('Decide low number: ')
+    #         if not low.isdigit():
+    #             print('Sorry, that\'s not a valid choice. ')
+    #         else:
+    #             break 
+    #     while True:
+    #         high = input('Decide high number: ')
+    #         if not high.isdigit() or low >= high:
+    #             print('Sorry, that\'s not a valid choice. ')
+    #         else:
+    #             break 
+    #     return (int(high), int(low))
     
     def play_game(self):
-        for remaining_guesses in self.__class__.GUESSES_REMAINING:
+        for remaining_guesses in self.guesses_remaining:
             self.show_guesses_remaining(remaining_guesses)
             result = self.check_guess(self.get_one_guess())
             print(self.__class__.RESULT_OF_GUESS_MESSAGE[result])
@@ -74,13 +77,13 @@ class GuessingGame:
     def get_one_guess(self):
         while True:
             prompt = ("Enter a number between "
-                      f"{self.low} and "
-                      f"{self.high}: ")
+                      f"{self.secret_range[0]} and "
+                      f"{self.secret_range[-1]}: ")
 
             guess = input(prompt)
             if guess.isdigit():
                 guess = int(guess)
-                if guess in self.__class__.SECRET_RANGE:
+                if guess in self.secret_range:
                     return guess
 
             print("Invalid guess. ", end="")
@@ -96,5 +99,5 @@ class GuessingGame:
     def show_game_end_message(self, result):
         print("\n", self.__class__.RESULT_OF_GAME_MESSAGE[result])
 
-game = GuessingGame()
+game = GuessingGame(501, 1500)
 game.play()
