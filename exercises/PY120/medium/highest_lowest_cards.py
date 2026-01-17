@@ -44,21 +44,20 @@ class Deck:
     SUITS = ['Hearts', 'Clubs', 'Diamonds', 'Spades']
 
     def __init__(self):
-        self.cards = self.generate_cards()
+        self._reset()
         
-    def generate_cards(self):
-        cards = [ Card(rank, suit) 
-                    for rank in self.__class__.RANKS 
-                    for suit in self.__class__.SUITS ]
-        shuffle(cards)
-        return cards
-    
     def draw(self):
-        if len(self.cards) == 0:
-            self.cards = self.generate_cards()
-            
-        card = self.cards.pop(0)
-        return card
+        if not self._deck:
+            self._reset()
+        
+        return self._deck.pop()
+    
+    def reset(self):
+        self._deck = [Card(rank, suit)
+                      for rank in Deck.RANKS
+                      for suit in Deck.SUITS]
+        
+        shuffle(self._deck)
         
     
 deck = Deck()
