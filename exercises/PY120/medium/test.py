@@ -1,14 +1,6 @@
-class Foo:
-    def __init__(self, obj):
-        self.obj = obj 
-        
-    def bar(self, qux):
-        return self.obj.name() + qux.name()
-    
-# self.obj and qux are both collaborators of the Foo class's 
-# instance objects 
+import sys
+import flask
 
-'''
-collaboration can take place inside a class's methods by using
-instance variables or method arguments as collaborators 
-'''
+print(f"This is program {__file__}")
+print(f"The Python version is {sys.version}")
+print(f"The Flask version is {flask.__version__}")
