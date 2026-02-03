@@ -1,9 +1,9 @@
-def build_profile(first, last, **kwargs):
+def build_profile(first, last, **userinfo):
     profile = {
         "first_name": first,
         "last_name": last,
     }
-    for key, val in kwargs.items():
+    for key, val in userinfo.items():
         profile[key] = val 
     return profile
 
