@@ -1,22 +1,26 @@
 class Car:
     def __init__(self):
         self._wheels = 4
-        self._name = None
-    
+        self._name = None 
+        
     @property 
     def wheels(self):
-        return self._wheels
+        return self._wheels 
     
     @property 
     def name(self):
         return self._name 
     
-    
     @name.setter 
-    def name(self, value):
-        if not isinstance(value, str):
-            raise TypeError("Name must be a string")
-        self._name = value 
+    def name(self, name):
+        if not isinstance(name, str):
+            raise ValueError('Name must be a string')
+        self._name = name 
         
     def __eq__(self, other):
-        return isinstance(other, Car) and self.name == other.name 
+        if not isinstance(other, Car):
+            raise TypeError("Cannot compare car object with other objects")
+        
+        return self.name == other.name
+        
+    
