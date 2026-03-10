@@ -1,22 +1,33 @@
-import re
+class EmailSender:
+    def send(self, message):
+        print(f'Sending email: {message}')
 
-def p1(regex, text):
-    print(re.findall(regex,
-                     text,
-                     flags=re.IGNORECASE | re.MULTILINE))
+class SmsSender:
+    def send(self, message):
+        print(f'Sending SMS: {message}')
 
-def p2(regex, text):
-    print(re.findall(regex,
-                     text,
-                     flags=re.IGNORECASE))
+class PushNotifier:
+    def send(self, message):
+        print(f'Sending push: {message}')
+        
+class NotificationManager:
+    def __init__(self):
+        pass 
+    
+    def notify(self, notifier, message):
+        notifier.send(message)
+        
+# Example usage:
+email = EmailSender()
+sms = SmsSender()
+push = PushNotifier()
 
-text = ("cat\ncot\nCATASTROPHE\nWILDCAUGHT\n" +
-        "wildcat\n-GET-\nYacht")
+manager = NotificationManager()
+manager.notify(email, "Hello via Email!")
+manager.notify(sms, "Hello via SMS!")
+manager.notify(push, "Hello via Push Notification!")
 
-p1(r'\Ac.t', text) # ['cat']
-# p1(r'c.t\z', text) # ['cht']
-p1(r'c.t\Z', text) # ['cht']
-
-p2(r'\Ac.t', text) # ['cat']
-# p2(r'c.t\z', text) # ['cht']
-p2(r'c.t\Z', text) # ['cht']
+# Expected output:
+# Sending email: Hello via Email!
+# Sending SMS: Hello via SMS!
+# Sending push notification: Hello via Push Notification!
