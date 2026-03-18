@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('add_user') }}">
+  <label for="username">Username</label>
+  <input type="text" name="username" id="usernmae">
+
+  <label for="email">Email</label>
+  <input type="email" name="email" id="email">
+  
+  <label for="interests">Interests (comma separated)</label>
+  <input type="text" name="interests" id="interests">
+
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}

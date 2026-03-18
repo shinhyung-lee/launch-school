@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div>
+  <h2>User List</h2>
+  <ul>
+    {% for user in users %}
+      <li>
+        <a href="{{ url_for('users') }}/{{ user.name }}">{{ user.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

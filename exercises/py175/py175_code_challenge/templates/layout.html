@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css')}}">
+    <title>code challenge</title>
+</head>
+
+<body>
+  <h1>User Info Code Challenge</h1>
+
+  <div>
+    {% block content %}{% endblock %}
+  </div>
+
+  <div class="info">
+    There are {{ num_users }} users with total of {{ total_likes }} interests
+  </div>
+</body>
+</html>
