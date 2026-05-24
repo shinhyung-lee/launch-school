@@ -1,33 +1,61 @@
-class EmailSender:
-    def send(self, message):
-        print(f'Sending email: {message}')
 
-class SmsSender:
-    def send(self, message):
-        print(f'Sending SMS: {message}')
-
-class PushNotifier:
-    def send(self, message):
-        print(f'Sending push: {message}')
+class Character:
+    def __init__(self, name, weapon):
+        self.name = name
+        self.health = 100 
+        self.weapon = weapon 
         
-class NotificationManager:
-    def __init__(self):
-        pass 
+    def __str__(self):
+        return f'Naem: {self.name}, Health: {self.health}'
+
+    def attack(self, other):
+        other.health -= self.weapon.weapon_damage
+        
+class Warrior(Character):
+    def __init__(self, name, weapon):
+        super().__init__(name, weapon)
+        self.stamina = 100 
+        
+    def attack(self, other):
+        if self.stamina < 10:
+            print("Not enough stamina to attack.")
+        else:
+            self.stamina -= 10
+            super().attack(other)
+        
+
+class Mage(Character):
+    def __init__(self, name, weapon):
+        super().__init__(name, weapon)
+        self.mana = 100 
+        
+    def cast_spell(self, target):
+        if self.mana < 20:       
+            print("Not enough mana to cast spell.")
+        else:
+            self.mana -= 20
+            super().attack(target)
+            super().attack(target)
     
-    def notify(self, notifier, message):
-        notifier.send(message)
+class Weapon:
+    def __init__(self, name, weapon_damage):
+        self.name = name 
+        self.weapon_damage = weapon_damage
         
-# Example usage:
-email = EmailSender()
-sms = SmsSender()
-push = PushNotifier()
+    def __str__(self):
+        return f'Weapon: {self.name}, Damage: {self.weapon_damage}'
+    
+sword = Weapon("Sword", 15)
+staff = Weapon("Staff", 8)
+fists = Weapon("Fists", 5)
 
-manager = NotificationManager()
-manager.notify(email, "Hello via Email!")
-manager.notify(sms, "Hello via SMS!")
-manager.notify(push, "Hello via Push Notification!")
+aragorn = Warrior("Aragorn", sword)
+gandalf = Mage("Gandalf", staff)
+goblin = Character("Goblin", fists)
 
-# Expected output:
-# Sending email: Hello via Email!
-# Sending SMS: Hello via SMS!
-# Sending push notification: Hello via Push Notification!
+print(aragorn.weapon)  # Expected: Weapon: Sword, Damage: 15
+aragorn.attack(goblin)
+print(goblin)          # Expected: Name: Goblin, Health: 85
+
+gandalf.attack(goblin)
+print(goblin)          # Expected: Name: Goblin, Health: 77

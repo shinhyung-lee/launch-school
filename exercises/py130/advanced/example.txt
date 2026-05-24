@@ -1,3 +1,5 @@
-hey
-second
-grande finale
+GET /products HTTP1.1
+Host: example.com
+Accept: text/html
+
+name=Claude&lang=Python
