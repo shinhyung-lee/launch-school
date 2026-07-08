@@ -1,0 +1,34 @@
+<script src="https://dbdwvr6p7sskw.cloudfront.net/210/files/email_data_v2.js"></script>
+<script>
+
+  function dateToString(date) {
+    const DATES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const dayIndex = date.getDay();
+    const dayOfWeek = DATES[dayIndex];
+    const month = MONTHS[date.getMonth()];
+    const day = date.getDate();
+    const year = date.getFullYear();
+
+    return `${dayOfWeek} ${month} ${day} ${year}`;
+  }
+
+  const emails = emailData.split('##||##');
+  let emailCount = emails.length;
+
+  const dates = emails.map(email => new Date(email.split('#/#')[2].split('Date: ')[1]));
+  const minDate = dates.reduce((minDate, currDate) => {
+    minDate = (minDate < currDate) ? minDate : currDate;
+    return minDate;
+  }, dates[0]);
+
+  const maxDate = dates.reduce((maxDate, currDate) => {
+    maxDate = (maxDate < currDate) ? currDate : maxDate;
+    return maxDate;
+  }, dates[0]);
+
+  const minDateString = dateToString(minDate);
+  const maxDateString = dateToString(maxDate);
+  console.log(`Count of email: ${emailCount}`);
+  console.log(`Date Range: ${minDateString} - ${maxDateString}`);
+</script>

@@ -1,5 +1,1 @@
-GET /products HTTP1.1
-Host: example.com
-Accept: text/html
-
-name=Claude&lang=Python
+Hello world! This is a test. Hello again.
