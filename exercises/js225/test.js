@@ -1,42 +1,44 @@
-
-function Animal(name) {
+function Pet(name, animal) {
   this.name = name;
+  this.animal = animal;
 }
 
-Animal.prototype.eat = function() {
-  console.log(`${this.name} is eating.`);
+Pet.prototype.sleep = function() {
+  console.log('I am sleeping');
 };
 
-function Mammal(name, hasFur) {
-  Animal.call(this, name);
-  this.hasFur = hasFur;
-}
-
-Mammal.prototype = Object.create(Animal.prototype);
-Mammal.prototype.constructor = Mammal;
-
-Mammal.prototype.sleep = function() {
-  console.log(`${this.name} is sleeping.`);
-};
-
-function Dog(name, hasFur, breed) {
-  Mammal.call(this, name, hasFur);
-  this.breed = breed;
-}
-
-Dog.prototype = Object.create(Mammal.prototype);
-Dog.prototype.constructor = Dog;
-// 
-
-Dog.prototype.bark = function() {
-  console.log(`${this.name} the ${this.breed} is barking`);
+Pet.prototype.wake = function() {
+  console.log('I am awake');
 };
 
 
-let myDog = new Dog('Rex', true, 'German Sheperd');
-console.log(myDog instanceof Dog);
-console.log(myDog instanceof Animal);
-console.log(myDog instanceof Mammal);
-// console.log(Dog.prototype.constructor);
-console.log(myDog.constructor);
-console.log(myDog.constructor.prototype);
+// let PetPrototype = {
+//   animal: '',
+//   name: '',
+
+//   sleep() {
+//     console.log('I am sleeping');
+//   },
+
+//   wake() {
+//     console.log('I am awake');
+//   },
+
+//   init(animal, name) {
+//     this.animal = animal;
+//     this.name = name;
+//     return this;
+//   }
+// }
+
+// let pudding = Object.create(PetPrototype).init("Cat", "Pudding");
+let pudding = new Pet('Cat', 'Pudding');
+console.log(`I am a ${pudding.animal}. My name is ${pudding.name}.`);
+pudding.sleep(); // I am sleeping
+pudding.wake();  // I am awake
+
+// let neptune = Object.create(PetPrototype).init("Fish", "Neptune");
+let neptune = new Pet('Cat', 'Neptune');
+console.log(`I am a ${neptune.animal}. My name is ${neptune.name}.`);
+neptune.sleep(); // I am sleeping
+neptune.wake();  // I am awake

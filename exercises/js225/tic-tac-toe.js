@@ -1,51 +1,9 @@
-/*
-2 players are playing tic-tac-toe game
-each player takes turns
-one player to complete one row, either
-  - horizontally
-  - vertically
-  - diagonally 
-along the board will win
-
-Board is a 2D game field.
-
-Board: 2d array
-[
-  ['', '', ''],
-  ['', '', ''],
-  ['', '', '']
-]
-
-Robot mark: 'O',
-Human player mark: 'X',
-
-nouns:
-  - turn
-  - 
-
-verbs:
-  - start game
-  - mark
-  - 'change' turn
-  - finish game
-
-classes:
-  - TTTGame
-    - orchestrates everythings
-  - Board
-    - grid: 2d array
-  - Human
-    - mark: 'X'
-  - Computer
-    - mark: 'O'
-*/
-
-let readline = require('readline-sync');
+let readline = require("readline-sync");
 
 class Square {
-  static UNUSED_SQUARE = ' ';
-  static HUMAN_MARKER = 'X';
-  static COMPUTER_MARKER = 'O';
+  static UNUSED_SQUARE = " ";
+  static HUMAN_MARKER = "X";
+  static COMPUTER_MARKER = "O";
 
   constructor(marker = Square.UNUSED_SQUARE) {
     this.marker = marker;
@@ -75,7 +33,7 @@ class Board {
 
   reset() {
     this.squares = {};
-    for (let counter = 1; counter <= 9; counter += 1) {
+    for (let counter = 1; counter <= 9; ++counter) {
       this.squares[counter] = new Square();
     }
   }
@@ -153,14 +111,14 @@ class Computer extends Player {
 
 class TTTGame {
   static POSSIBLE_WINNING_ROWS = [
-    ["1", "2", "3"],
-    ["4", "5", "6"],
-    ["7", "8", "9"],
-    ["1", "4", "7"],
-    ["2", "5", "8"],
-    ["3", "6", "9"],
-    ["1", "5", "9"],
-    ["3", "5", "7"],
+    ["1", "2", "3"],            // top row of board
+    ["4", "5", "6"],            // center row of board
+    ["7", "8", "9"],            // bottom row of board
+    ["1", "4", "7"],            // left column of board
+    ["2", "5", "8"],            // middle column of board
+    ["3", "6", "9"],            // right column of board
+    ["1", "5", "9"],            // diagonal: top-left to bottom-right
+    ["3", "5", "7"],            // diagonal: bottom-left to top-right
   ];
 
   constructor() {
@@ -170,6 +128,8 @@ class TTTGame {
   }
 
   play() {
+    // first player to win 3 wins
+    // alternate start between human and computer
     this.displayWelcomeMessage();
 
     let currentPlayer = this.human;
@@ -203,11 +163,11 @@ class TTTGame {
 
   displayResults() {
     if (this.isWinner(this.human)) {
-      console.log('You won! Congratulations!');
+      console.log("You won! Congratulations!");
     } else if (this.isWinner(this.computer)) {
-      console.log('I won! I won! Take that, human.');
+      console.log("I won! I won! Take that, human!");
     } else {
-      console.log('A tie game. How boring.');
+      console.log("A tie game. How boring.");
     }
   }
 
@@ -233,14 +193,54 @@ class TTTGame {
 
       if (validChoices.includes(choice)) break;
 
-      console.log('Sorry, that is not a valid choice.');
-      console.log('');
+      console.log("Sorry, that's not a valid choice.");
+      console.log("");
     }
 
     this.board.markSquareAt(choice, this.human.getMarker());
   }
 
   computerMoves() {
+    let choice = this.offensiveComputerMove() ||
+      this.defensiveComputerMove() ||
+      this.pickCenterSquare() ||
+      this.pickRandomSquare();
+
+    this.board.markSquareAt(choice, this.computer.getMarker());
+  }
+
+  defensiveComputerMove() {
+    return this.findCriticalSquare(this.human);
+  }
+
+  offensiveComputerMove() {
+    return this.findCriticalSquare(this.computer);
+  }
+
+  findCriticalSquare(player) {
+    for (let index = 0; index < TTTGame.POSSIBLE_WINNING_ROWS.length; ++index) {
+      let row = TTTGame.POSSIBLE_WINNING_ROWS[index];
+      let key = this.criticalSquare(row, player);
+      if (key) return key;
+    }
+
+    return null;
+  }
+
+  criticalSquare(row, player) {
+    if (this.board.countMarkersFor(player, row) === 2) {
+      let index = row.findIndex(key => this.board.isUnusedSquare(key));
+      if (index >= 0) return row[index];
+    }
+
+    return null;
+  }
+
+  pickCenterSquare() {
+    return this.board.isUnusedSquare("5") ? "5" : null;
+  }
+
+  pickRandomSquare() {
     let validChoices = this.board.unusedSquares();
     let choice;
 
@@ -248,7 +248,7 @@ class TTTGame {
       choice = Math.floor((9 * Math.random()) + 1).toString();
     } while (!validChoices.includes(choice));
 
-    this.board.markSquareAt(choice, this.computer.getMarker());
+    return choice;
   }
 
   gameOver() {
@@ -262,7 +262,7 @@ class TTTGame {
   isWinner(player) {
     return TTTGame.POSSIBLE_WINNING_ROWS.some(row => {
       return this.board.countMarkersFor(player, row) === 3;
-    })
+    });
   }
 
   static joinOr(choices, separator = ', ', conjunction = 'or') {
