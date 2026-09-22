@@ -1,44 +1,8 @@
-function Pet(name, animal) {
-  this.name = name;
-  this.animal = animal;
+
+function reassignArr(arr) {
+  arr.push(2);
 }
 
-Pet.prototype.sleep = function() {
-  console.log('I am sleeping');
-};
-
-Pet.prototype.wake = function() {
-  console.log('I am awake');
-};
-
-
-// let PetPrototype = {
-//   animal: '',
-//   name: '',
-
-//   sleep() {
-//     console.log('I am sleeping');
-//   },
-
-//   wake() {
-//     console.log('I am awake');
-//   },
-
-//   init(animal, name) {
-//     this.animal = animal;
-//     this.name = name;
-//     return this;
-//   }
-// }
-
-// let pudding = Object.create(PetPrototype).init("Cat", "Pudding");
-let pudding = new Pet('Cat', 'Pudding');
-console.log(`I am a ${pudding.animal}. My name is ${pudding.name}.`);
-pudding.sleep(); // I am sleeping
-pudding.wake();  // I am awake
-
-// let neptune = Object.create(PetPrototype).init("Fish", "Neptune");
-let neptune = new Pet('Cat', 'Neptune');
-console.log(`I am a ${neptune.animal}. My name is ${neptune.name}.`);
-neptune.sleep(); // I am sleeping
-neptune.wake();  // I am awake
+let a = [1];
+reassignArr(a);
+console.log(a); // [ 1, 2 ]
