@@ -33,13 +33,20 @@ document.toString()
 Node Properties
 - `nodeName`
     - contains a String that represents the node type
-    - For Elements (anything that represents an HTML tag), this is the name of the corresponding tag in <b><span style='color: red;'>uppercase</span><b>
+    - For Elements (anything that represents an HTML tag), this is the name of the corresponding tag in <b><span style='color: red;'>uppercase</span></b>
 ```javascript
 > p.nodeName
 = "P"
 ```
 
-- For text nodes -- even empty nodes -- the nodeName is "#text". For comments, it's "#comment".
+- For text nodes -- even empty nodes -- the `nodeName` is "#text". For comments, it's "#comment".
+- For document itself, `nodeName` is "#document".
+
+## What is empty node?
+- text node containing nothing but whitespace.
+- LS shows two different text node types for clarity, but, in fact, all text nodes are the same.
+- Empty nodes typically arise from whitespace before and after tags in the HTML
+    - for example, the gap between `</h1>` and `<p>` forms an empty node that contains a newline and two space characters. 
 
 `nodeType` property
 - to determine a node's type
@@ -68,7 +75,7 @@ Node.DOCUMENT_NODE	9	A Document node
 ```
 
 - Text nodes have `nodeValue`
-- For a text node, the nodeValue is the textual content of the node
+- For a text node, the `nodeValue` is the textual content of the node
 ```javascript
 > let t = p.childNodes[0];
 > t.nodeName;
@@ -78,6 +85,81 @@ Node.DOCUMENT_NODE	9	A Document node
 > t.nodeValue
 = "\n      To receive our weekly emails, enter your email address below.\n"
 ```
+
+## Type of a Node
+- `EventTarget` provides the event-handling behavior that supports interactive web applications. 
+- `Node` provides common behavior to all nodes.
+- `Text` and `Element` are the chief subtypes of Node.
+    - `Text` nodes hold text.
+    - `Element` nodes represent HTML tags.
+- Most HTML tags map to specific element subtypes that inherit from HTMLElement.
+- Other element types exist, such as SVGElement and its subtypes.
+
+## Determining a Node type
+Method 1 (`Object.getPrototypeOf()`)
+- `Object.getPrototypeOf()`, returns the prototype of the specified DOM element
+- ie.
+```javascript
+> Object.getPrototypeOf(p);
+= HTMLParagraphElement {Symbol(Symbol.toStringTag): 'HTMLParagraphElement', onmouseenter: undefined, onmouseleave: undefined, constructor: ƒ}
+```
+
+Method 2 (`toString` method)
+- ie.
+```javascript
+> p.toString();
+= "[object HTMLParagraphElement]"
+```
+- For most nodes, the return value of toString and String is the node type's name, but not all node types behave so well. HTMLAnchorElement (an `<a>` tag), for instance, is different:
+```javascript
+> let a = document.querySelector('a');
+> a
+= <a href="http://domain.com/page">Page</a>
+> a.toString();
+= "http://domain.com/page"
+```
+- `HTMLAnchorElement` implements toString in a way that causes it to return the <u>URL from the link.</u> 
+    - Customized toString methods like this exist for some other Elements as well.
+
+Last but not least, use `instanceof` method
+ If all you need to know, though, is whether a node is an Element, you can test it with instanceof Element:
+
+```javascript
+> p instanceof HTMLElement;
+= true
+> p instanceof Element;
+= true
+> p instanceof Node;
+= true
+> p instanceof SVGElement;
+= false
+```
+
+## `tagName` property
+- If you don't need to know the type name, you can use the `tagName` property to check its HTML tag name instead
+```javascript
+> p.tagName;
+= "P"
+```
+
+## Traversing Nodes
+### Properties of parent nodes:
+| Parent Node Properties	| Value |
+| -------- | -------- |
+| childNodes | 	Live collection of all child nodes | 
+| firstChild | 	childNodes[0] or null | 
+| lastChild  | 	childNodes[childNodes.length - 1] or null | 
+
+### Properties of child nodes:
+| Child Node Properties	| Value |
+| -------- | -------- |
+| parentNode  | 	Immediate parent of this node | 
+| nextSibling | 	parentNode.childNodes[n + 1] or null | 
+| previousSibling  | 	parentNode.childNodes[n - 1] or null |
+
+- All DOM nodes that represent elements have both parent and child nodes. 
+- Thus, they have both sets of the above properties. 
+- Whether a node has a non-null value for a given property, though, depends on the DOM that contains the node.
 
 ## Attribute Properties
 - We can access some attributes directly
@@ -170,6 +252,11 @@ These methods insert a node before, after, or within an Element:
 | "beforeend" | After the last child of the element | 
 | "afterend" | After the element | 
 
+## `node.contains(otherNode)` method
+- checks whether a specific DOM node is a descendent of a given node (including direct children, grandchildren, or the node itself)
+    - Return Value: Returns a boolean (true or false)
+    - Self-Contained: It returns true if you pass the node itself as the argument (a node is considered to contain itself)
+    - Null Handling: If otherNode is null or undefined, it safely returns false rather than throwing an error
 
 
 
