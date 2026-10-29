@@ -1,7 +1,6 @@
 
 # JS230 Topics
 
-
 Q. When is the DOM different than the HTML?
 - when there are mistakes in the HTML and the browser has fixed them for you.
 - Let’s say you have a `<table>` element in your HTML and leave out the required `<tbody>` element. The browser will just insert that `<tbody>` for you.
@@ -21,6 +20,8 @@ What is a node?
 JS Methods to interact with DOM
 - `querySelector`: returns the first node in the DOM that matches the specified CSS selector
 - `querySelectorAll`: 
+    - returns the `NodeList` of matching elements 
+    
 - `document` node
     - represents the entire HTML document
     - is the topmost node
@@ -29,6 +30,25 @@ JS Methods to interact with DOM
 document.toString()
 // "[object HTMLDocument]"
 ```
+
+***IMPORTANT***
+- for `querySelector` and `querySelectorAll`:
+    - both take multiple css selectors as an argument
+    - The argument is a string of one or more comma-separated css selectors
+
+```html
+<div id="divOne"></div>
+<div id="divTwo"></div>
+```
+
+```javascript
+> document.querySelector('#divTwo, #divOne');
+= <div id="divOne"></div>    // returns the first matching element;
+                             // div with an id of `divOne` matched first
+> document.querySelectorAll('#divTwo, #divOne');
+= NodeList(2) [div#divOne, div#divTwo]
+```
+
 
 Node Properties
 - `nodeName`
@@ -86,7 +106,7 @@ Node.DOCUMENT_NODE	9	A Document node
 = "\n      To receive our weekly emails, enter your email address below.\n"
 ```
 
-## Type of a Node
+## DOM. Type of a Node
 - `EventTarget` provides the event-handling behavior that supports interactive web applications. 
 - `Node` provides common behavior to all nodes.
 - `Text` and `Element` are the chief subtypes of Node.
@@ -95,7 +115,7 @@ Node.DOCUMENT_NODE	9	A Document node
 - Most HTML tags map to specific element subtypes that inherit from HTMLElement.
 - Other element types exist, such as SVGElement and its subtypes.
 
-## Determining a Node type
+## DOM. Determining a Node type
 Method 1 (`Object.getPrototypeOf()`)
 - `Object.getPrototypeOf()`, returns the prototype of the specified DOM element
 - ie.
@@ -142,7 +162,7 @@ Last but not least, use `instanceof` method
 = "P"
 ```
 
-## Traversing Nodes
+## DOM. Traversing Nodes
 ### Properties of parent nodes:
 | Parent Node Properties	| Value |
 | -------- | -------- |
@@ -160,6 +180,22 @@ Last but not least, use `instanceof` method
 - All DOM nodes that represent elements have both parent and child nodes. 
 - Thus, they have both sets of the above properties. 
 - Whether a node has a non-null value for a given property, though, depends on the DOM that contains the node.
+
+## DOM Recursive Functions and Traversing Nodes
+Recursive functions 
+- returns to the previous level of recursion when it's gone as far as it can.
+- performs a bit of processing.
+- calls itself with a "smaller" argument.
+
+## Element attributes
+- Developers can access the attributes of an Element using these methods
+
+| Method | Description | Returns |
+| -------- | -------- | -------- |
+| getAttribute(name) | Retrieve value of attribute name | Value of attribute as string |
+| setAttribute(name, newValue) | Set value of attribute name to newValue | undefined |
+| hasAttribute(name) | Check whether element has attribute name | true or false |
+
 
 ## Attribute Properties
 - We can access some attributes directly
@@ -193,7 +229,13 @@ Getting the list of classes for the `button`
 | remove(name)	| Remove class name from element| 
 | toggle(name)	| Add class name to element if it doesn't exist, remove if it does exist| 
 | contains(name)	| Return true or false depending on whether element has class name| 
-| length	| The number of classes to which element belongs| 
+| length	| The number of classes to which element belongs|
+
+## `className` vs. `classList`
+- `className` returns a string
+- `classList` returns an object
+
+![ClassList Image File](./images/classList.svg)
 
 ## `style` and CSSStyleDeclaration object
 - Element nodes also have a style attribute that has some special behavior. 
@@ -206,7 +248,7 @@ Getting the list of classes for the `button`
 
 (IMPORTANT)
 - When a CSS property's name contains dashes, you must use a camelCased version of the name to access that property.
-    - For example, to set a value for the line-height attribute, you assign a value to the lineHeight property:
+    - For example, to set a value for the line-height attribute, you assign a value to the `lineHeight` property:
 ```javascript
 > h1.style.lineHeight = '3em';
 ```
@@ -226,17 +268,72 @@ The JavaScript engine evaluates that statement as:
 NaN - color
 // Uncaught ReferenceError: color is not defined
 ```
+ 
 
-| Parent Node Method	| Description |
-| -------- | -------- |
-| parent.appendChild(node)| 	Append node to the end of parent.childNodes | 
-| parent.insertBefore(node, targetNode)| 	Insert node into parent.childNodes before targetNode | 
-| parent.replaceChild(node, targetNode)| 	Remove targetNode from parent.childNodes and insert node in its place | 
+## `node.contains(otherNode)` method
+- checks whether a specific DOM node is a descendent of a given node (including direct children, grandchildren, or the node itself)
+    - Return Value: Returns a boolean (true or false)
+    - Self-Contained: It returns true if you pass the node itself as the argument (a node is considered to contain itself)
+    - Null Handling: If otherNode is null or undefined, it safely returns false rather than throwing an error
+
+## `getElementsByTagName`, `getElementsByClassName`
+| Method | Returns | 
+| ------ | ------ | 
+| document.getElementsByTagName(tagName) | `HTMLCollection` or `NodeList` of matching elements | 
+| document.getElementsByClassName(className) | `HTMLCollection` or `NodeList` of matching elements | 
+
+- One key way in which these methods differ from the one we wrote above is that they return array-like objects, not actual arrays.
+
+## DOM 12. Traversing Elements 
+| Parent Element Properties | Value | 
+| ------ | ------ | 
+| children | Live collection of all child elements |  
+| firstElementChild | `children[0]` or null |  
+| lastElementChild | `children[children.length - 1]` or null |  
+| childElementCount | `children.length` |  
+
+More..
+| Child Element Properties | Value | 
+| ------ | ------ | 
+| nextElementSibling | `parentNode.children[n + 1]` or `null` |  
+| previousElementSibling | `parentNode.children[n - 1]` or `null` |  
+
+## textContent
+- The `textContent` property provides access to the text
+
+to change the value of text content:
+```javascript
+> document.querySelector('a').textContent = 'step backward';
+= "step backward"
+```
+
+- Be careful when setting `textContent`
+    - doing so removes all child nodes from the element and replaces them with a text node that contains the value:
+
+
+## DOM 14. Creating and Moving DOM Nodes
+| Node Creation Method | Returns | 
+| ------ | ------ | 
+| document.createElement(tagName) | A new Element node |  
+| document.createTextNode(text) | A new Text node |  
+| node.cloneNode(deepClone) | Returns a copy of node |  
+
+- If `deepClone` is `true`, cloneNode makes copies of node and all its descendant nodes; otherwise, cloneNode merely copies node
+- In most cases, you'll use `true` to get a copy of the node and its children.
+
+### Adding Nodes to the DOM
+You can append, insert, and replace nodes with methods on the node's parent:
+
+| Parent Node Method | Description | 
+| ------ | ------ | 
+| parent.appendChild(node) | Append node to the end of parent.childNodes |  
+| parent.insertBefore(node, targetNode) | Insert node into parent.childNodes before targetNode |  
+| parent.replaceChild(node, targetNode) | Remove targetNode from parent.childNodes and insert node in its place |  
 
 - `document.appendChild` causes an error. Use `document.body.appendChild` instead.
 
 (IMPORTANT)
-- No Node may appear twice in the DOM. If you try to add a node that is already in the DOM, it gets removed from the original location. Thus, you can move an existing node by inserting it where you want it.
+- <span style='font-weight: bold; color: pink;'>No Node may appear twice in the DOM. If you try to add a node that is already in the DOM, it gets removed from the original location.</span> Thus, you can move an existing node by inserting it where you want it.
 
 These methods insert a node before, after, or within an Element:
 | Element Insertion Method | Description |
@@ -250,16 +347,15 @@ These methods insert a node before, after, or within an Element:
 | "beforebegin" | Before the element | 
 | "afterbegin" | Before the first child of the element | 
 | "beforeend" | After the last child of the element | 
-| "afterend" | After the element | 
+| "afterend" | After the element |
 
-## `node.contains(otherNode)` method
-- checks whether a specific DOM node is a descendent of a given node (including direct children, grandchildren, or the node itself)
-    - Return Value: Returns a boolean (true or false)
-    - Self-Contained: It returns true if you pass the node itself as the argument (a node is considered to contain itself)
-    - Null Handling: If otherNode is null or undefined, it safely returns false rather than throwing an error
+### Removing Nodes
+- When you remove a node from the DOM, it becomes eligible for garbage collection unless you keep a reference to the node in a variable.
 
-
-
+| Element Method | Description | 
+| ------ | ------ | 
+| node.remove() | Remove node from the DOM | 
+| parent.removeChild(node) | Remove node from parent.childNodes | 
 
 
 
