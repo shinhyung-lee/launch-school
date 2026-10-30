@@ -225,11 +225,11 @@ Getting the list of classes for the `button`
 
 | Name	| Description |
 | -------- | -------- |
-| add(name)| 	Add class name to element| 
-| remove(name)	| Remove class name from element| 
-| toggle(name)	| Add class name to element if it doesn't exist, remove if it does exist| 
-| contains(name)	| Return true or false depending on whether element has class name| 
-| length	| The number of classes to which element belongs|
+| add(name)| 	Add class name to element | 
+| remove(name)	| Remove class name from element | 
+| toggle(name)	| Add class name to element if it doesn't exist, remove if it does exist | 
+| contains(name)	| Return true or false depending on whether element has class name | 
+| length	| The number of classes to which element belongs |
 
 ## `className` vs. `classList`
 - `className` returns a string
